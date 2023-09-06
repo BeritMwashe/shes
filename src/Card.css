@@ -1,0 +1,25 @@
+/* HomePage.css */
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Three columns per row */
+    grid-gap: 20px; /* Gap between cards */
+    justify-items: center; /* Center content horizontally */
+  }
+  
+  .card {
+    padding: 20px;
+    border: 1px solid #000;
+    border-radius: 5px;
+    color: #fff;
+    text-align: center;
+  }
+  
+  .card h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .card p {
+    font-size: 16px;
+  }
+  

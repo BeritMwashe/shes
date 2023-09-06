@@ -1,0 +1,27 @@
+/* HomePage.css */
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between; /* Distribute space evenly between columns */
+  }
+  
+  .card {
+    flex-basis: calc(15% ); /* Calculate the width for each card (minus margins) */
+    margin: 10px;
+    padding: 20px;
+    border: 1px solid #000;
+    border-radius: 5px;
+    background-color: #ff69b4; /* Pink background */
+    color: #fff; /* White text color */
+    text-align: center;
+  }
+  
+  .card h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .card p {
+    font-size: 16px;
+  }
+  
