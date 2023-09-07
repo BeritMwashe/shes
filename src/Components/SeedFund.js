@@ -1,8 +1,9 @@
 "use client";
 import React, { useState, useEffect } from "react";
 // import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
+import Button from '@mui/material/Button';
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -36,9 +37,52 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 export default function SeedFund() {
+  // Add this component inside your SheLoan component
+function PopupNotification() {
+  return (
+    <div
+      style={{
+        position: "fixed",
+        top: "20px",
+        right: "20px",
+        backgroundColor: "green",
+        color: "white",
+        padding: "10px",
+        borderRadius: "5px",
+        display: isLoanApproved ? "block" : "none",
+      }}
+    >
+      {popupMessage}
+    </div>
+  );
+}
+
+  const navigate = useNavigate();
   const [seedFund, setSeedFund] = useState([]);
   const [sheLoans, setSheLoans] = useState([]);
+  const [popupMessage, setPopupMessage] = useState(""); // To store the popup message
+  const [isLoanApproved, setIsLoanApproved] = useState(false); // To track whether the loan is approved
 
+  const handleApprove = async (userid,loanId) => {
+    try {
+      const response = await axios.put(`https://shebnks.com/seedFund/approveLoan/${userid}/${loanId}`);
+      // Handle the response as needed
+      console.log("Loan approved:", response.data);
+  
+      // Optionally, you can update the loan status in your local state
+      // Update the loan status to 'Approved' in your sheLoans state
+      const updatedSheLoans = sheLoans.map((loan) =>
+        loan.id === loanId ? { ...loan, loanStatus: 'Approved' } : loan
+      );
+      setSheLoans(updatedSheLoans);
+
+    // Show the popup message and mark the loan as approved
+    setPopupMessage("Loan Approved!");
+    setIsLoanApproved(true);
+    } catch (error) {
+      console.error("Error approving loan:", error);
+    }
+  };
   useEffect(() => {
     const getSeedFund = async () => {
       await axios
@@ -68,67 +112,51 @@ export default function SeedFund() {
    
       <div>
         <h1>Seed Fund</h1>
+        <Button
+          variant="contained"
+          style={{ backgroundColor: 'pink', color: 'white', marginBottom: '16px' }}
+          onClick={() => navigate('/home')} // Navigate to the home page
+        >
+          Back to Home
+        </Button>
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell>applicant</TableCell>
-                <TableCell align="right">
-                  application_admin_check_status
-                </TableCell>
-                <TableCell align="right">application_code</TableCell>
+               
+             
+            
                 <TableCell align="right">application_date</TableCell>
-                <TableCell align="right">
-                  application_evaluation_status
-                </TableCell>
-
-                <TableCell align="right">application_id</TableCell>
-                <TableCell align="right">application_received_status</TableCell>
-                <TableCell align="right">application_rules_status</TableCell>
+             
+               
+          
+             
                 <TableCell align="right">application_status</TableCell>
 
-                <TableCell align="right">assigned_judge</TableCell>
-                <TableCell align="right">attachments_link</TableCell>
+                {/* <TableCell align="right">assigned_judge</TableCell> */}
+               
                 <TableCell align="right">business_founders</TableCell>
                 <TableCell align="right">business_impact</TableCell>
 
                 <TableCell align="right">business_initiative</TableCell>
                 <TableCell align="right">business_market</TableCell>
-                <TableCell align="right">business_name</TableCell>
-                <TableCell align="right">business_other_info</TableCell>
-
+            
                 <TableCell align="right">business_problems</TableCell>
-                <TableCell align="right">business_share_capital</TableCell>
+         
                 <TableCell align="right">bussiness_about</TableCell>
-                <TableCell align="right">bussiness_challenge</TableCell>
-
-                <TableCell align="right">
-                  bussiness_challenge_solution
-                </TableCell>
-                <TableCell align="right">bussiness_email</TableCell>
-                <TableCell align="right">bussiness_goals</TableCell>
-                <TableCell align="right">bussiness_level</TableCell>
-
-                <TableCell align="right">bussiness_mobile</TableCell>
+               
 
                 <TableCell align="right">bussiness_sectors</TableCell>
                 <TableCell align="right">bussiness_target</TableCell>
-                <TableCell align="right">bussiness_vision_mission</TableCell>
-                <TableCell align="right">fandraised_before</TableCell>
-
-                <TableCell align="right">fundRaisedBefore</TableCell>
-                <TableCell align="right">funding_reason</TableCell>
-                <TableCell align="right">joint_statement</TableCell>
-                <TableCell align="right">other_attachements</TableCell>
+              
 
                 <TableCell align="right">ownedbywomen</TableCell>
-                <TableCell align="right">project_budget</TableCell>
+                
                 <TableCell align="right">proven_traction</TableCell>
-                <TableCell align="right">revenue_amount</TableCell>
-
-                <TableCell align="right">stemGap</TableCell>
-                <TableCell align="right">tax_admin_cert</TableCell>
+               <TableCell align="right">stemGap</TableCell>
+            
                 <TableCell align="right">approve</TableCell>
+                <TableCell align="right">Deny</TableCell>
               
               </TableRow>
             </TableHead>
@@ -138,74 +166,46 @@ export default function SeedFund() {
                   key={row.userId}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
-                  <TableCell>{row.applicant}</TableCell>
+                   <TableCell align="right">{row.application_date}</TableCell>
+   
+      <TableCell align="right">{row.application_status}</TableCell>
+      {/* <TableCell align="right">{row.assigned_judge}</TableCell> */}
+  
+      <TableCell align="right">{row.business_founders}</TableCell>
+      <TableCell align="right">{row.business_impact}</TableCell>
+      <TableCell align="right">{row.business_initiative}</TableCell>
+      <TableCell align="right">{row.business_market}</TableCell>
+      {/* <TableCell align="right">{row.business_name}</TableCell>
+                <TableCell align="right">{row.business_other_info}</TableCell> */}
+
+                <TableCell align="right">{row.business_problems}</TableCell>
+                {/* <TableCell align="right">{row.business_share_capital}</TableCell> */}
+                <TableCell align="right">{row.bussiness_about}</TableCell>
+              
+
+               
+
+                <TableCell align="right">{row.bussiness_sectors}</TableCell>
+                <TableCell align="right">{row.bussiness_target}</TableCell>
+                
+                <TableCell align="right">{row.ownedbywomen ? 'Yes' : 'No'}</TableCell>
+
+               
+                <TableCell align="right">{row.proven_traction}</TableCell>
+                
+
+                <TableCell align="right">{row.stemGap}</TableCell>
+            
+             
                   <TableCell align="right">
-                    {row.application_admin_check_status}
-                  </TableCell>
-                  <TableCell align="right">{row.application_code}</TableCell>
-                  <TableCell align="right">{row.application_date}</TableCell>
-                  <TableCell align="right">
-                    {row.application_evaluation_status}
-                  </TableCell>
-
-                  <TableCell align="right">{row.application_id}</TableCell>
-                  <TableCell align="right">
-                    {row.application_received_status}
-                  </TableCell>
-                  <TableCell align="right">
-                    {row.application_rules_status}
-                  </TableCell>
-                  <TableCell align="right">{row.application_status}</TableCell>
-
-                  <TableCell align="right">{row.assigned_judge}</TableCell>
-                  <TableCell align="right">{row.attachments_link}</TableCell>
-                  <TableCell align="right">{row.business_founders}</TableCell>
-                  <TableCell align="right">{row.business_impact}</TableCell>
-
-                  <TableCell align="right">{row.business_initiative}</TableCell>
-                  <TableCell align="right">{row.business_market}</TableCell>
-                  <TableCell align="right">{row.business_name}</TableCell>
-                  <TableCell align="right">{row.business_other_info}</TableCell>
-
-                  <TableCell align="right">{row.business_problems}</TableCell>
-                  <TableCell align="right">
-                    {row.business_share_capital}
-                  </TableCell>
-                  <TableCell align="right">{row.bussiness_about}</TableCell>
-                  <TableCell align="right">{row.bussiness_challenge}</TableCell>
-
-                  <TableCell align="right">
-                    {row.bussiness_challenge_solution}
-                  </TableCell>
-                  <TableCell align="right">{row.bussiness_email}</TableCell>
-                  <TableCell align="right">{row.bussiness_goals}</TableCell>
-                  <TableCell align="right">{row.bussiness_level}</TableCell>
-
-                  <TableCell align="right">{row.bussiness_mobile}</TableCell>
-
-                  <TableCell align="right">{row.bussiness_sectors}</TableCell>
-                  <TableCell align="right">{row.bussiness_target}</TableCell>
-                  <TableCell align="right">
-                    {row.bussiness_vision_mission}
-                  </TableCell>
-                  <TableCell align="right">{row.fandraised_before}</TableCell>
-
-                  <TableCell align="right">{row.fundRaisedBefore}</TableCell>
-                  <TableCell align="right">{row.funding_reason}</TableCell>
-                  <TableCell align="right">{row.joint_statement}</TableCell>
-                  <TableCell align="right">{row.other_attachements}</TableCell>
-
-                  <TableCell align="right">{row.ownedbywomen}</TableCell>
-                  <TableCell align="right">{row.project_budget}</TableCell>
-                  <TableCell align="right">{row.proven_traction}</TableCell>
-                  <TableCell align="right">{row.revenue_amou}nt</TableCell>
-
-                  <TableCell align="right">{row.stemGap}</TableCell>
-                  <TableCell align="right">{row.tax_admin_cert}</TableCell>
-                  <TableCell align="right"> <div className="button-container">
-            <button className="approve-button">Approve</button>
-            <button className="deny-button">Deny</button>
-          </div></TableCell>
+                    <Button variant="contained" style={{ backgroundColor: 'green', color: 'white' }} onClick={() => handleApprove(row.userId,row.application_id)}>
+                    {isLoanApproved ? "Disburse" : "Approve"}
+  </Button>
+        </TableCell>
+        <TableCell align="right"> <Button variant="contained" style={{ backgroundColor: 'pink', color: 'white' }}  onClick={() => handleApprove(row.userId,row.application_id)}>
+   Deny
+  </Button>
+        </TableCell>
                 
                 </StyledTableRow>
               ))}
@@ -213,6 +213,7 @@ export default function SeedFund() {
           </Table>
         </TableContainer>
       </div>
+      <PopupNotification /> {/* Render the popup */}
     </>
   );
 }

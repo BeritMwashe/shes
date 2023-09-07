@@ -6,6 +6,16 @@ function HomePage() {
   const navigate = useNavigate();
   const allusers =() =>{
  
+    navigate("/users", { replace: true });
+
+  }
+  const allsheloans =() =>{
+ 
+    navigate("/sheloans", { replace: true });
+
+  }
+  const allseedfund =() =>{
+ 
     navigate("/seedfund", { replace: true });
 
   }
@@ -21,6 +31,7 @@ function HomePage() {
           bgColor="#3498db" // Blue background
         />
         <Card
+        toClick={allseedfund}   
           title="All Seed Funds"
           content="Display all seed fund information here."
           icon="money"
@@ -52,6 +63,7 @@ function HomePage() {
           bgColor="#3498db" // Pink background
         />
          <Card
+         toClick={allsheloans}   
           title="She loans"
           content="Display all seed loan information here."
           icon="check-circle"

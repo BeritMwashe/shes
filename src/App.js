@@ -6,6 +6,7 @@ import LoginPage from "./LoginPage";
 import HomePage from "./HomePage";
 import SeedFund from "./Components/SeedFund";
 import SheLoan from "./Components/SheLoan";
+import Users from "./Components/Allusers";
 
 export default function App() {
   return (
@@ -16,6 +17,7 @@ export default function App() {
           <Route path="/home" element={<HomePage/>} />
           <Route path="/seedfund" element={<SeedFund/>}/>  
           <Route path="/sheloans" element={<SheLoan/>}/>  
+          <Route path="/users" element={<Users/>}/> 
         
    
       </Routes>
