@@ -5,7 +5,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 import Table from "@mui/material/Table";
-import Button from '@mui/material/Button';
+import Button from "@mui/material/Button";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
@@ -24,39 +24,19 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-export default function SheLoan() {
-  const [seedFund, setSeedFund] = useState([]);
-  const [sheLoans, setSheLoans] = useState([]);
-  const [allusers, setAllUsers] = useState([]);
+export default function ApprovedLoan({ ApprovedLoans }) {
   const navigate = useNavigate();
   const handleApprove = () => {
     // Implement your approval logic here
     // You can also access data related to this row if needed.
   };
-  useEffect(() => {
-       const getLoans = async () => {
-      await axios
-        .get("https://shebnks.com/seedFund/denyloan/{}/{}")
-        .then((sheloans) => {
-          console.log("Loans", sheloans?.data?.data);
-          setSheLoans(sheloans?.data?.data);
-          // navigate("/dashboard", { replace: true });
-        })
-        .catch((error) => {});
-    };
-   
+  useEffect(() => {}, []);
 
-     
-    getLoans();
-  
-  }, []);
-
-  if (sheLoans.length === 0) {
+  if (ApprovedLoans.length === 0) {
     return (
       <>
         <div>fetching data</div>
       </>
     );
   }
- 
 }

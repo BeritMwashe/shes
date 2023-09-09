@@ -1,11 +1,10 @@
-LoginPage.css
-
 /* LoginPage.css */
 
 .login-container {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100% !important;
 }
 
 .login-card {

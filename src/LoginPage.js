@@ -33,9 +33,10 @@ function LoginPage() {
       );
       const { data } = response;
       if (data.status === 200) {
-        // setMessage(data.message);
-        // You can store the user data in state or context for further use
-        navigate("/home", { replace: true });
+        console.log(data);
+        localStorage.setItem("user", JSON.stringify(data));
+        navigate("/dashboard", { replace: true });
+        window.location.reload();
       } else {
         setMessage("Login failed. Please check your credentials.");
       }
