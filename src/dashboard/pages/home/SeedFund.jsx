@@ -7,7 +7,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import SeedFundd from "../../../Components/tables/SeedFundd";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 
-function SeedFund() {
+function SeedFund({ setTorefresh }) {
   const [SeedFunds, setSeedFunds] = useState([]);
   const [Refreshh, setRefreshh] = useState("");
   useEffect(() => {
@@ -57,7 +57,7 @@ function SeedFund() {
   return (
     <>
       <div className="dash-home">
-        <Sidebar />
+        <Sidebar setTorefresh={setTorefresh} />
         <div className="dash-homecontainer">
           <Navbar />
 

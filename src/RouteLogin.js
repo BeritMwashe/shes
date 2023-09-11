@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { v4 } from "uuid";
 
-function LoginPage({ setTorefresh }) {
+function RouteLogin({ setTorefresh }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -37,7 +37,7 @@ function LoginPage({ setTorefresh }) {
         console.log(data);
         sessionStorage?.setItem("user", JSON.stringify(data?.data));
         setTorefresh(v4());
-        navigate("/dashboard", { replace: true });
+        // navigate("/dashboard", { replace: true });
       } else {
         setMessage("Login failed. Please check your credentials.");
       }
@@ -107,4 +107,4 @@ function LoginPage({ setTorefresh }) {
     </div>
   );
 }
-export default LoginPage;
+export default RouteLogin;

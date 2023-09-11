@@ -6,7 +6,7 @@ import "./homestyle.css";
 import CircularProgress from "@mui/material/CircularProgress";
 import Allusers from "../../../Components/tables/Allusers";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
-function AllUsers() {
+function AllUsers({ setTorefresh }) {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -58,7 +58,7 @@ function AllUsers() {
   return (
     <>
       <div className="dash-home">
-        <Sidebar />
+        <Sidebar setTorefresh={setTorefresh} />
         <div className="dash-homecontainer">
           <Navbar />
 

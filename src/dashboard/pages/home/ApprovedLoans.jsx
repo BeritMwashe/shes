@@ -7,7 +7,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import ApprovedLoan from "../../../Components/tables/ApprovedLoan";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 
-function ApprovedLoans() {
+function ApprovedLoans({ setTorefresh }) {
   const [approvedloans, setApprovedLoans] = useState([]);
 
   useEffect(() => {
@@ -57,7 +57,7 @@ function ApprovedLoans() {
   return (
     <>
       <div className="dash-home">
-        <Sidebar />
+        <Sidebar setTorefresh={setTorefresh} />
         <div className="dash-homecontainer">
           <Navbar />
 

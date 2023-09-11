@@ -7,7 +7,7 @@ import "./homestyle.css";
 import CircularProgress from "@mui/material/CircularProgress";
 import SheLoan from "../../../Components/tables/SheLoan";
 
-function SheLoans() {
+function SheLoans({ setTorefresh }) {
   const [sheLoans, setSheLoans] = useState([]);
 
   useEffect(() => {
@@ -57,7 +57,7 @@ function SheLoans() {
   return (
     <>
       <div className="dash-home">
-        <Sidebar />
+        <Sidebar setTorefresh={setTorefresh} />
         <div className="dash-homecontainer">
           <Navbar />
 

@@ -10,12 +10,16 @@ import PaymentsIcon from "@mui/icons-material/Payments";
 import NewspaperIcon from "@mui/icons-material/Newspaper";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import logo from "../../assets/images/logo.png";
+import { v4 } from "uuid";
+import { useNavigate } from "react-router-dom";
 
-const Sidebar = () => {
+const Sidebar = ({ setTorefresh }) => {
+  const navigate = useNavigate();
   const hundleLogout = (e) => {
     e.preventDefault();
-    localStorage.removeItem("user");
-    window.location.reload();
+    sessionStorage.removeItem("user");
+    setTorefresh(v4());
+    navigate("/", { replace: true });
   };
 
   // const {dispatch}=useContext(DarkModeContext)
