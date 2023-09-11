@@ -34,9 +34,9 @@ function LoginPage() {
       const { data } = response;
       if (data.status === 200) {
         console.log(data);
-        localStorage.setItem("user", JSON.stringify(data));
+        sessionStorage.setItem("user", JSON.stringify(data));
         navigate("/dashboard", { replace: true });
-        window.location.reload();
+        
       } else {
         setMessage("Login failed. Please check your credentials.");
       }
